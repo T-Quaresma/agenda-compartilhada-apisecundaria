@@ -27,6 +27,10 @@ CORS(app,
      supports_credentials=True
     )
 
+JWT_SECRET = os.getenv("JWT_SECRET")
+
+if not JWT_SECRET:
+    raise RuntimeError("JWT_SECRET environment variable is not configured.")
 
 @app.get("/check-main")
 def check_main():
@@ -74,12 +78,12 @@ def login(body: LoginSchema):
         }
         token = jwt.encode(
             payload,
-            "secret_test",
+            JWT_SECRET,
             algorithm="HS256"
         )
         refresh_token = jwt.encode(
             refresh_payload,
-            "secret_test",
+            JWT_SECRET,
             algorithm="HS256"
         )
         response = make_response(
@@ -118,7 +122,7 @@ def validate_token():
     try:
         decoded_token = jwt.decode(
             access_token,
-            "secret_test",
+            JWT_SECRET,
             algorithms=["HS256"]
         )
         if decoded_token.get("type") != "access":
@@ -137,7 +141,7 @@ def refresh_token():
     try:
         decoded_token = jwt.decode(
             refresh_token,
-            "secret_test",
+            JWT_SECRET,
             algorithms=["HS256"]
         )
         if decoded_token.get("type") != "refresh":
@@ -151,7 +155,7 @@ def refresh_token():
         }
         new_access_token = jwt.encode(
             new_payload,
-            "secret_test",
+            JWT_SECRET,
             algorithm="HS256"
         )
         response = make_response(
