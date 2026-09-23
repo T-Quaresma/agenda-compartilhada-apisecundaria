@@ -19,7 +19,7 @@ class registerSchema(BaseModel):
     email: str
     senha: str
 
-info = Info(title="auth API", version="1.0.0")
+info = Info(title="Sharp Authentication API", version="1.0.0")
 
 app = OpenAPI(__name__, info=info)
 CORS(app,
@@ -32,16 +32,6 @@ JWT_SECRET = os.getenv("JWT_SECRET")
 if not JWT_SECRET:
     raise RuntimeError("JWT_SECRET environment variable is not configured.")
 
-@app.get("/check-main")
-def check_main():
-    params={ "name": "Taua"}
-    response = requests.get("http://127.0.0.1:5000/usuarios", params=params)
-    print(response.url)
-
-    return {
-        "status_code": response.status_code,
-        "response": response.json()  
-    }, 200
 
 @app.post('/auth/register')
 def register(body: registerSchema):
@@ -126,7 +116,7 @@ def validate_token():
             algorithms=["HS256"]
         )
         if decoded_token.get("type") != "access":
-            return {"Message": "Invalid Token Type"}
+            return {"Message": "Invalid Token Type"}, 400
         return decoded_token, 200
     except jwt.ExpiredSignatureError:
         return {"Message": "Token Expired"}, 401
@@ -200,7 +190,7 @@ def logout():
 
     
 if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0", port=5001)
+    app.run(debug=False, host="0.0.0.0", port=5001)
 
 
         
