@@ -83,7 +83,7 @@ The SHARP Principal API must also be running on port 5000 for registration and l
 
 **1. Clone the repository:**
 
-git clone URL_DO_REPOSITORIO_DA_API_AUTH
+git clone https://github.com/T-Quaresma/agenda-compartilhada-apisecundaria
 
 **2. Go to the project directory:**
 
@@ -149,7 +149,7 @@ The Principal API must also be available for registration and login to work.
 
 **1. Clone the repository:**
 
-git clone URL_DO_REPOSITORIO_DA_API_AUTH
+git clone https://github.com/T-Quaresma/agenda-compartilhada-apisecundaria
 
 **2. Enter the project directory:**
 
