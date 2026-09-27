@@ -188,6 +188,11 @@ docker run -d --name sharp-auth \
   -e JWT_SECRET=YOUR_GENERATED_SECRET \
   sharp-auth
 
+or
+
+docker run -d --name sharp-auth --network sharp-network -p 5001:5001 -e MAIN_API_URL=http://sharp-principal:5000 -e JWT_SECRET=YOUR_GENERATED_SECRET sharp-auth
+  
+
 Replace `YOUR_GENERATED_SECRET` with the secret generated in the previous step.
 
 **The parameters used in this command are:**
